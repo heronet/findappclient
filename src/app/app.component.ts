@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User } from './_models/User';
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'findappclient';
+  users: any;
+  constructor(private accountService: AccountService) {}
+
+  ngOnInit(): void {
+    this.setCurrentUser();
+  }
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.accountService.setCurrentUser(user);
+  }
 }
